@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Map;
+use App\Models\Classe;
 
-class MapController extends Controller
+
+class ClasseController extends Controller
 {
     //
     function index()
     {
-        return Map::all();
+        return Classe::all();
     }
 }
