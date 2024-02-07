@@ -13,9 +13,10 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('192.168.91.128')
-    ->set('remote_user', 'deployer')
-    ->set('deploy_path', '~/var/www/Odyssee_back');
+host('vm')
+    ->set('hostname', '192.168.91.128')
+    ->set('remote_user', 'warwi')
+    ->set('deploy_path', '/var/www/Odyssee_deployer');
 
 // Hooks
 

@@ -27,4 +27,13 @@ class UserController extends Controller
         ];
         return response($response, 201);
     }
+
+    public function logout(Request $request){
+        auth()->user()->tokens()->delete();
+        $response = {
+            'message'=>"Vous etes désormais déconnecé !",
+        }
+        return $response;
+    }
+
 }
