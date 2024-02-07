@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
             $table->string('character_name');
+            $table->unsignedInteger('current_health');
+            $table->unsignedInteger('max_health');
+            $table->unsignedInteger('skill');
+            $table->unsignedInteger('will');
+            $table->unsignedInteger('strength');
+            $table->unsignedInteger('spell_slot');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('class_id');
             $table->timestamps();

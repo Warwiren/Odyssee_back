@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('maps_scenarios', function (Blueprint $table) {
+        Schema::create('map_scenarios', function (Blueprint $table) {
             $table->id();
             $table->string('location');
             $table->unsignedBigInteger('scenario_id');

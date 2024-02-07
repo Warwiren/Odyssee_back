@@ -2,6 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\MapController;
+use App\Http\Controllers\ScenarioController;
+use App\Http\Controllers\MapScenarioController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +21,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('register', [UserController::class, 'register']);
+
+
+Route::get('users', [Controller::class, 'index']);
+Route::get('characters', [CharacterController::class, 'index']);
+
+Route::get('classes', [ClasseController::class, 'index']);
+Route::get('maps', [MapController::class, 'index']);
+Route::get('scenarios', [ScenarioController::class, 'index']);
+Route::get('map-scenario', [MapScenarioController::class, 'index']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
 });

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('scenarios', function (Blueprint $table) {
             $table->id();
+            $table->string('scenario_name');
             $table->string('description', 1500);
             $table->unsignedInteger('dice_test');
             $table->timestamps();

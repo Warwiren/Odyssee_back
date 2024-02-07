@@ -4,6 +4,14 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Classe;
+use App\Models\User;
+use App\Models\Map;
+use App\Models\Scenario;
+use App\Models\Monster;
+use App\Models\MapScenario;
+use App\Models\ScenarioMonster;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +26,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        Classe::factory()->count(3)->create();
+        User::factory()->count(1)->create();
+        // Map::factory()->count(3)->create();
+        // Scenario::factory()->count(3)->create();
+        // Monster::factory()->count(3)->create();
+        // MapScenario::factory()->count(3)->create();
+        ScenarioMonster::factory()->count(3)->create();
+
     }
 }
