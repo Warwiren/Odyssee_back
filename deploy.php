@@ -18,6 +18,8 @@ host('vm')
     ->set('remote_user', 'warwi')
     ->set('deploy_path', '/var/www/Odyssee_deployer');
 
+    set('composer_options', '--verbose --prefer-dist --no-progress --no-interaction --optimize-autoloader');
+
 // Hooks
 
 after('deploy:failed', 'deploy:unlock');
