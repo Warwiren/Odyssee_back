@@ -6,7 +6,7 @@ use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ScenarioController;
 use App\Http\Controllers\MapScenarioController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,17 +24,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('register', [UserController::class, 'register']);
-Route::post('logout', [UserController::class, 'logout']);
+
+Route::post('login',[UserController::class,'login']);
+Route::post('logout',[UserController::class,'logout'])
+  ->middleware('auth:sanctum');
+// Route::post('logout', [UserController::class, 'logout']);
+
+Route::post('/tokens/create', function (Request $request) {
+    $token = $request->user()->createToken($request->token_name);
+
+    return ['token' => $token->plainTextToken];
+});
 
 
-Route::get('users', [Controller::class, 'index']);
-Route::get('characters', [CharacterController::class, 'index']);
-
-Route::get('classes', [ClasseController::class, 'index']);
-Route::get('maps', [MapController::class, 'index']);
-Route::get('scenarios', [ScenarioController::class, 'index']);
-Route::get('map-scenario', [MapScenarioController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('characters', [CharacterController::class, 'index']);
+    Route::get('classes', [ClasseController::class, 'index']);
+    Route::get('maps', [MapController::class, 'index']);
+    Route::get('scenarios', [ScenarioController::class, 'index']);
+    Route::get('map-scenario', [MapScenarioController::class, 'index']);
 });
