@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ScenarioMonsterController extends Controller
+class EventMonsterController extends Controller
 {
     //
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::prefix('api')->group(function() {
+    Route::post('register', [UserController::class, 'register'])->middleware('guest');
+    Route::post('login',[UserController::class,'login'])->middleware('guest');
+
+    Route::post('logout',[UserController::class,'logout'])->middleware('auth:sanctum');
+});
+

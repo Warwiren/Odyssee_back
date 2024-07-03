@@ -11,17 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('map_scenarios', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('event_name');
+            $table->string('description', 1500);
+            $table->unsignedInteger('dice_test');
             $table->string('location');
-            $table->unsignedBigInteger('scenario_id');
+            $table->string('location_image');
+            $table->string('type');
             $table->unsignedBigInteger('map_id');
             $table->timestamps();
 
-            // Définir les clés étrangères
-            $table->foreign('scenario_id')->references('id')->on('scenarios');
             $table->foreign('map_id')->references('id')->on('maps');
+
         });
+
     }
 
     /**
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('map_scenarios');
+        Schema::dropIfExists('events');
     }
 };
