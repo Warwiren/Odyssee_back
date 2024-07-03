@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Map extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'image',
+    ];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

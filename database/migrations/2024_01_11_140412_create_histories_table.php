@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('character_id');
-            $table->unsignedBigInteger('scenario_id');
+            $table->unsignedBigInteger('event_id');
             $table->timestamps();
 
             // Clés étrangères
-            $table->foreign('scenario_id')->references('id')->on('scenarios');
+            $table->foreign('event_id')->references('id')->on('events');
             $table->foreign('character_id')->references('id')->on('characters');
         });
     }

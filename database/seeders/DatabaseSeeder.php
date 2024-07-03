@@ -7,10 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Classe;
 use App\Models\User;
 use App\Models\Map;
-use App\Models\Scenario;
-use App\Models\Monster;
-use App\Models\MapScenario;
-use App\Models\ScenarioMonster;
+use App\Models\EventMonster;
 use Illuminate\Support\Facades\DB;
 
 
@@ -31,11 +28,11 @@ class DatabaseSeeder extends Seeder
         // ]);
         Classe::factory()->count(3)->create();
         User::factory()->count(1)->create();
-        // Map::factory()->count(3)->create();
+        Map::factory()->count(3)->create();
         // Scenario::factory()->count(3)->create();
         // Monster::factory()->count(3)->create();
         // MapScenario::factory()->count(3)->create();
-        ScenarioMonster::factory()->count(3)->create();
+        EventMonster::factory()->count(3)->create();
 
     }
 }
