@@ -75,7 +75,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return EventResource::collection($updatedEvents);
     });
 
-
     // Route::get('maps/{map}/events', function($id) {
     //     // Récupérer tous les événements pour la carte spécifiée
     //     $events = Event::where('map_id', $id)->with('monsters')->get();
@@ -92,7 +91,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //         $event->completed = $completedEvents->contains($event->id);
     //         return $event;
     //     });
-
     //     return EventResource::collection($updatedEvents);
     // });
 
