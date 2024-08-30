@@ -24,18 +24,23 @@ use App\Http\Resources\EventResource;
 
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-
+Route::post('register', [UserController::class, 'register'])->middleware('guest');
+Route::post('login',[UserController::class,'login'])->middleware('guest');
+Route::post('logout',[UserController::class,'logout'])->middleware('auth:sanctum');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('user', [UserController::class, 'show']);
     Route::get('users', [UserController::class, 'index']);
 
     Route::get('characters', [CharacterController::class, 'index']);
     Route::post('characters', [CharacterController::class, 'store']);
     Route::delete('characters/{id}', [CharacterController::class, 'destroy']);
+    Route::put('characters/{id}/update-class', [CharacterController::class, 'updateClass']);
+
 
     Route::get('classes', [ClasseController::class, 'index']);
     Route::get('characters/{character}/available_maps', AvailableMapsController::class);

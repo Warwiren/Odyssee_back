@@ -21,23 +21,23 @@ class CharacterController extends Controller
             ->get();
 
         // Transformer les données des personnages
-        $charactersWithClassName = $characters->map(function ($character) {
-            return [
-                'id' => $character->id,
-                'character_name' => $character->character_name,
-                'class_id' => $character->class_id,
-                'class_name' => $character->classe->class_name,
-                'current_health' => $character->current_health,
-                'max_health' => $character->max_health,
-                'skill' => $character->skill,
-                'will' => $character->will,
-                'strength' => $character->strength,
-                'spell_slot' => $character->spell_slot,
-            ];
-        });
+        // $charactersWithClassName = $characters->map(function ($character) {
+        //     return [
+        //         'id' => $character->id,
+        //         'character_name' => $character->character_name,
+        //         'class_id' => $character->class_id,
+        //         'class_name' => $character->classe->class_name,
+        //         'current_health' => $character->current_health,
+        //         'max_health' => $character->max_health,
+        //         'skill' => $character->skill,
+        //         'will' => $character->will,
+        //         'strength' => $character->strength,
+        //         'spell_slot' => $character->spell_slot,
+        //     ];
+        // });
 
         // Retourner la réponse JSON
-        return response()->json($charactersWithClassName);
+        return response()->json($characters);
     }
 
     public function store(Request $request)
@@ -79,4 +79,34 @@ class CharacterController extends Controller
 
         return response()->json(['message' => 'Character deleted successfully']);
     }
+
+    public function updateClass($id, Request $request)
+    {
+        // Validation des données reçues
+        $request->validate([
+            'class_id' => 'required|exists:classes,id',
+        ]);
+    
+        // Trouver le personnage par ID
+        $character = Character::findOrFail($id);
+    
+        // Trouver la nouvelle classe par ID
+        $classe = Classe::findOrFail($request->input('class_id'));
+    
+        // Mettre à jour la classe du personnage et ses caractéristiques
+        $character->class_id = $classe->id;
+        $character->skill = $classe->skill;
+        $character->will = $classe->will;
+        $character->strength = $classe->strength;
+        $character->spell_slot = $classe->spell_slot;
+    
+        $character->save();
+    
+        // Réponse JSON avec la classe mise à jour
+        return response()->json([
+            'message' => 'Classe et caractéristiques mises à jour avec succès',
+            'character' => $character->load('classe') // Charge les données de la classe associée
+        ]);
+    }
+    
 }

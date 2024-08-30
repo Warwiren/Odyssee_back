@@ -19,6 +19,10 @@ class UserController extends Controller
         return User::all();
     }
 
+    public function show()
+    {
+        return auth()->user();
+    }
 
     public function login(Request $request)
     {

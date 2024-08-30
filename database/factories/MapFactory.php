@@ -18,20 +18,13 @@ class MapFactory extends Factory
     {
         $mapName = fake()->unique()->randomElement(['Montagne', 'Foret', 'Grotte']);
 
-        switch ($mapName) {
-            case 'Montagne':
-                $mapImage = 'maps/mountain.png';
-                break;
-            case 'Foret':
-                $mapImage = 'maps/forest.jpg';
-                break;
-            case 'Grotte':
-                $mapImage = 'maps/cave.jpg';
-                break;
-            default:
-                $mapImage = '';
-                break;
-        }
+        $baseUrl = 'storage/maps/';
+
+        $mapImage = match ($mapName) {
+            'Montagne' => asset($baseUrl . 'mountain.png'),
+            'Foret' => asset($baseUrl . 'forest.jpg'),
+            'Grotte' => asset($baseUrl . 'cave.jpg'),
+        };
 
         return [
             'map_name' => $mapName,
