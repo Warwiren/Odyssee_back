@@ -20,23 +20,6 @@ class CharacterController extends Controller
             ->with('classe')
             ->get();
 
-        // Transformer les données des personnages
-        // $charactersWithClassName = $characters->map(function ($character) {
-        //     return [
-        //         'id' => $character->id,
-        //         'character_name' => $character->character_name,
-        //         'class_id' => $character->class_id,
-        //         'class_name' => $character->classe->class_name,
-        //         'current_health' => $character->current_health,
-        //         'max_health' => $character->max_health,
-        //         'skill' => $character->skill,
-        //         'will' => $character->will,
-        //         'strength' => $character->strength,
-        //         'spell_slot' => $character->spell_slot,
-        //     ];
-        // });
-
-        // Retourner la réponse JSON
         return response()->json($characters);
     }
 
