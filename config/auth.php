@@ -112,4 +112,9 @@ return [
 
     'password_timeout' => 10800,
 
+    'throttle' => [
+        'attempts' => 10, 
+        'decay_minutes' => 1, 
+],
+
 ];

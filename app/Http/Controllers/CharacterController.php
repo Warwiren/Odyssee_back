@@ -88,7 +88,7 @@ class CharacterController extends Controller
         // Réponse JSON avec la classe mise à jour
         return response()->json([
             'message' => 'Classe et caractéristiques mises à jour avec succès',
-            'character' => $character->load('classe') // Charge les données de la classe associée
+            'character' => $character->load('classe')
         ]);
     }
     

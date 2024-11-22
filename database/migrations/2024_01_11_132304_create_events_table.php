@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedInteger('dice_test');
             $table->string('location');
             $table->string('location_image');
-            $table->string('type');
             $table->unsignedBigInteger('map_id');
             $table->timestamps();
 

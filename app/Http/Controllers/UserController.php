@@ -23,7 +23,7 @@ class UserController extends Controller
     {
         return auth()->user();
     }
-
+    
     public function login(Request $request)
     {
         $request->validate([
@@ -32,18 +32,14 @@ class UserController extends Controller
         ]);
 
         if (!Auth::attempt($request->only(['email', 'password']))) {
-            return response()->json(["message" => "The provided credentials do not match our records"], 401);
+            return response()->json(["message" => "Les informations d'identification fournies ne correspondent à rien"], 401);
         }
 
         $user = $request->user();
-        //$token = $user->createToken('authToken')->plainTextToken;
 
-        //$cookie = cookie('auth_token', $token, 60 * 24 * 7); // set the cookie for 7 days
+        $token = $user->createToken('API Token')->plainTextToken;
 
-        // Return response with JSON data and cookie
-        // return response()->json(['user' => $user, 'token' => $token])->cookie($cookie);
-        Auth::login($user);
-        return response()->json($user, 201);
+        return response()->json(['token' => $token], 200);
     }
 
     public function logout(Request $request) {

@@ -25,7 +25,6 @@ class EventFactory extends Factory
             'dice_test' => fake()->numberBetween(8, 15),
             'location' => $locationName,
             'location_image' => '',
-            'type' => $eventName,
             'map_id' =>fake()->numberBetween(1, 3),
 
         ];

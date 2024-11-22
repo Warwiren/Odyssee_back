@@ -29,7 +29,7 @@ use App\Http\Resources\EventResource;
 // });
 
 Route::post('register', [UserController::class, 'register'])->middleware('guest');
-Route::post('login',[UserController::class,'login'])->middleware('guest');
+Route::post('login', [UserController::class, 'login'])->middleware('throttle:10,1');
 Route::post('logout',[UserController::class,'logout'])->middleware('auth:sanctum');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -100,18 +100,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // });
 
 });
-//Pourquoi ne pas suivre un modèle d'API REST plus traditionnel
-//-> Pour limiter le nombre de requêtes -> utiliser seulement ce qui est pratique
-
-//Route::post('register', [UserController::class, 'register']);
-
-
-
-
-// Route::post('logout', [UserController::class, 'logout']);
-
-// Route::post('/tokens/create', function (Request $request) {
-//     $token = $request->user()->createToken($request->token_name);
-
-//     return ['token' => $token->plainTextToken];
-// });

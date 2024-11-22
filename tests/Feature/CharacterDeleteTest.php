@@ -1,42 +1,42 @@
 <?php
 
 use App\Models\User;
+use App\Models\Character;
 use App\Models\Classe;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use function Pest\Laravel\actingAs;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\Sanctum;
 
-uses(RefreshDatabase::class);
 
-it('can create a character', function () {
-    // Créer un utilisateur
-    $user = User::factory()->create();
+it('can delete a character', function () {
 
-    // Créer une classe via la factory
-    $classe = Classe::factory()->create();
+    $user = User::factory()->create([
+        'password' => Hash::make('password'),
+    ]);
 
-    // Authentifier l'utilisateur
-    actingAs($user);
+    Sanctum::actingAs($user);
 
-    // Effectuer une requête POST pour créer un personnage
+    // Créer une classe
+    $class = Classe::factory()->create();
+
+    // Créer un personnage
     $response = $this->postJson('/api/characters', [
-        'character_name' => 'Test Character',
-        'class_id' => $classe->id,
+        'character_name' => 'Hero',
+        'class_id' => $class->id,
     ]);
 
-    // Vérifier le statut de la réponse
-    $response->assertStatus(201);
+    // Extraire l'ID du personnage de la réponse JSON
+    $characterId = $response->json('id');
 
-    // Vérifier que les données retournées sont correctes
-    $response->assertJson([
-        'character_name' => 'Test Character',
-        'class_id' => $classe->id,
-        'user_id' => $user->id,
-    ]);
+    // Effectuer une requête DELETE pour supprimer le personnage
+    $deleteResponse = $this->deleteJson("/api/characters/{$characterId}");
 
-    // Vérifier que le personnage a bien été créé dans la base de données
-    $this->assertDatabaseHas('characters', [
-        'character_name' => 'Test Character',
-        'class_id' => $classe->id,
-        'user_id' => $user->id,
+    // Vérifier que le personnage est supprimé avec succès
+    $deleteResponse->assertStatus(200);
+    $deleteResponse->assertJson(['message' => 'Character deleted successfully']);
+
+    // Vérifier que le personnage n'existe plus dans la base de données
+    $this->assertDatabaseMissing('characters', [
+        'id' => $characterId,
     ]);
 });

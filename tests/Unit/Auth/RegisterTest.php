@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
     public function test_user_can_register()
     {
