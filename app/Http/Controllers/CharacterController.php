@@ -70,11 +70,11 @@ class CharacterController extends Controller
             'class_id' => 'required|exists:classes,id',
         ]);
     
-        // Trouver le personnage par ID
-        $character = Character::findOrFail($id);
-    
-        // Trouver la nouvelle classe par ID
+        $character = Character::findOrFail($id);    
         $classe = Classe::findOrFail($request->input('class_id'));
+    
+        // Sauvegarder la santé actuelle du personnage avant de modifier ses caractéristiques
+        $currentHealth = $character->current_health;
     
         // Mettre à jour la classe du personnage et ses caractéristiques
         $character->class_id = $classe->id;
@@ -82,14 +82,17 @@ class CharacterController extends Controller
         $character->will = $classe->will;
         $character->strength = $classe->strength;
         $character->spell_slot = $classe->spell_slot;
+        $character->current_health = $currentHealth;
     
+        // Sauvegarder le personnage
         $character->save();
     
         // Réponse JSON avec la classe mise à jour
         return response()->json([
             'message' => 'Classe et caractéristiques mises à jour avec succès',
-            'character' => $character->load('classe')
+            'character' => $character->load('classe') 
         ]);
     }
+    
     
 }
